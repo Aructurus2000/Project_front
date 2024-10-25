@@ -1,41 +1,90 @@
-//Проверка типов (typeof), преобразование типов, интерполяция строк
-// const name = "Александр";
-// const goobye = `Пока`;
+/*Условия if else. Тернарный оператор.
+ Логиче кие операторы.
+ Оператор нулевого слияния.*/
+// const year = 2024;
+// if (year === 2024) {
+//   console.log("Ура!");
+// } else {
+//   console.log("год не совпадает.");
+// }
+// if (year === 2024) {
+//   console.log("Ура!");
+// } else if (year === 3000) {
+//   console.log("Слишком поздно. Нейросеть заменила человечество.");
+// } else {
+//   console.log("Неизвестный год.");
+// }
 
-//интерполяция строк
-// const message = `${goobye}, ${name}!`;
+// const year = 2024;
+// let message = null;
+// if (year === 2024) {
+//   message = "Начинаю учиться!";
+// } else {
+//   message = "Неизвестный год.";
+// }
 // console.log(message);
 
-// const a = 10;
-// const b = 5;
-// const sum = `Сумма a и b  равна ${a + b}`;
-// console.log(sum);
+/* задача с присвоением значением в переменную в зависимсти от каких-либо
+условий принято делать через тернарный оператор.
+*/
 
-// //bigint
-// console.log(9900000000000091n + 1n);
-// console.log(9900000000000091n + 2n);
+// const year = 3000;
+// const message = year === 2024 ? "Начинаю учиться!" : "Неизвестный год";
+// // ? - тернарный оператор
+// // ? если условие истинно : в ином случае следующее)
+// console.log(message);
 
-//typeof
-// const message = "Привет";
-// console.log(typeof message);
-
-//Неявные преобразования
-// const num = 111;
-// const str = "222";
-// const result = num + str; //происходит преобразование из number в string
+// Применение Логических операторов
+// const age = 17;
+// const withParent = true;
+// if (age > 18 || withParent) {
+//   // оператор ИЛИ ||
+//   // если age > 18 или withParent значение истинно
+//   console.log("Проходите");
+// } else {
+//   console.log("Несовершеннолетниим вход закрыт");
+// }
+// Применение оператора ИЛИ
+// const result = "" || false || null || undefined || 0 || "Привет" || "Пока";
 // console.log(result);
-// console.log(typeof result);
-// console.log("16" / "8"); //происходит преобразование из string в number
+/* Вычисление происходит слева - направо и приводит каждый из них к Bool типу
+ и если в результате приведения будет значение True, то оператор 
+ останавливает свою работу, все будет вычисляться до превого истинного операнда.
+ Если все будут false то в результате будет значение последнего операнда
+*/
 
-//Явное преобразование типов
-// const age = 11;
-// console.log(typeof age);
-// console.log(typeof String(age)); // глобавльная функция String
-// const age1 = "22";
-// console.log(typeof age1);
-// console.log(typeof Number(age1)); // глобавльная функция Number
+// Логический оператор И &&
+// const moneyInWallet = 5;
+// const iceCreamPrice = 2;
+// const isStoreOpen = true;
 
-// console.log(Boolean(-1)); // глобавльная функция Boolean
-// console.log(Boolean(0));
-// console.log(Boolean(1));
-// console.log(Boolean(2));
+// if (iceCreamPrice < moneyInWallet && isStoreOpen) {
+//   console.log("Вот ваше мороженое!");
+// } else {
+//   console.log("Магазин закрыт.");
+// }
+
+// const result = "Привет" && true && 5 && null && 10;
+/* Приводит каждый из них к Bool типу и если 
+в результате приведения будет значение False вычисляется в значение первого
+ложного операнда
+*/
+
+// const age = 16;
+// const isYoung = age < 18;
+// isYoung && console.log("Покажите паспорт!");
+// если выражение isYoung будет true
+// то выполнится console.log
+
+// Оператор нулевого слияния ??
+// const a = null;
+// const b = 100;
+
+// const result1 = a || b;
+// const result2 = a ?? b;
+/* если первый операнд не равен null 
+и не равен undefined то все выражение вернет значение
+первго операнда, во всех остальных второго операнда*/
+
+// console.log(result1);
+// console.log(result2);
