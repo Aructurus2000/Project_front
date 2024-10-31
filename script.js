@@ -1,99 +1,107 @@
-/*Функции, область видимости. Параметры и аргументы, значения по умолчанию. Return */
+/*Виды функциий. Стрелочные функции.*/
 
-// 1-й способ создания фунций
-// function logHello() {
-//   console.log("Привет");
-// }
-// logHello(); //вызов функции
-
-// область видимости
-// const message = "Глобальный привет";
-
-// function logMessage() {
-//   const message = "Локальный привет";
-
-//   console.log(message);
-
-//   for (let i = 0; i < 3; i++) {
-//     const message = `Итерация цикла №${i}`;
-//     console.log(message);
-//   }
-// }
-// logMessage();
-// console.log(message);
-
-// Параметры функции
-// function logMessage(message, count) {
-//   for (let i = 0; i < count; i++) {
-//     console.log(message);
-//   }
-// }
-// logMessage("Привет!", 3);
-// logMessage("Пока!", 2);
-
-// const globalMessage = "Привет"; //глобальная переменная
-
-// function logMessage(message, count) {
-//   const messageFormated = `(((${message})))`;
-
-//   for (let i = 0; i < count; i++) {
-//     console.log(messageFormated);
-//   }
-// }
-
-// logMessage(globalMessage, 3);
-// console.log(globalMessage);
-
-// const globalMessage = "Привет"; //глобальная переменная
-
-// function logMessage(message = "мяу", count = 1) {
-//   const messageFormated = `(((${message})))`;
-
-//   for (let i = 0; i < count; i++) {
-//     console.log(messageFormated);
-//   }
-// }
-
-// logMessage(globalMessage);
-// logMessage(globalMessage, 10);
-// logMessage("опа", 10);
-// logMessage(undefined, 10);
-
-// Возврат значения, ключевое слово return
+// console.log(sum(2, 3));
+/* Главная особеность function declaration функции в то что такую функцию можно
+использовать до ее фактического объявления */
 // function sum(a, b) {
 //   return a + b;
 // }
-/* Абсолютно каждая функция возвращает какое-то значение явно или не явно.
- Явный возврат из функции произойдет если указать ключевое слово return,
-а после выражение которое мы хоти мернуть из функции return a + b*/
-
-// const result = sum(100, 1);
-// console.log(result);
-
-/* Если не указать ключевое словов return в функции
- то при вызове такой функции результат всегда будет один значение undefined*/
-// function getAgeType(age) {
-//   if (typeof age !== "number") {
-//     return "Возвраст указан некорректно";
-//   }
-//   if (age < 1 || age > 125) {
-//     return "Такого возраста не может быть";
-//   }
-//   if (age < 18) {
-//     return "Несовершеннолетний";
-//   }
-//   return "Взрослый";
+// function declaration имеется возможность ее перезаписать
+// function logMessage() {
+//   console.log("Привет!");
 // }
-// console.log(getAgeType(30));
+// function logMessage() {
+//   console.log("Пока!");
+// }
 
-//чтобы при пустом значениив вызове не происходило вывода значения undefined
-//запишем следующее условие if
-function getSecretMessage(name) {
-  if (!name) return; /* если значение name некорректное,
-     если при вызове функции ничего не передали или значения null, undefined 
-     или пустую строку то в результате приведения к boolean значение преобразутеся
-     в false, далее это значение инвертируется в true и в случе некорректных данных
-     произойдет  досрочный выход из функции с помощью слова return*/
-  return `О, а я тебя знаю! Ты же тот самый ${name}?`;
-}
-console.log(getSecretMessage());
+// logMessage();
+
+/* Внутри function declaration можем полчить доступ к неявной переменной arguments,
+ в которой, в формате массива будут перечислены значения переданные в функции 
+ аргументов*/
+// function logAll() {
+//   console.log(arguments);
+// }
+// logAll("Привет", 555, false);
+
+/* function expression - когда функция записана как функциональное выражение,
+ например присвоенно к переменной*/
+// const logHello = function() {
+//     console.log('Привет!')
+// }
+// logHello()
+// такую функцию нельзя переопределить если не let
+// такую функцию нельзя использовать до объявления
+
+// function arrow
+// const logHello = () => {
+//   console.log("Привет!");
+// };
+
+// logHello();
+
+// такую функцию нельзя использовать до объявления
+// не имеет доступа к неявной переменной arguments
+// нет своего контекста с использованием this
+
+// const sum = (a, b) => {
+//   return a + b;
+// };
+
+// console.log(sum(1, 2));
+// отличие стрелочной функции - неявный возврат из функции если записать в одну строку
+// const sum = (a, b) => a + b;
+
+// console.log(sum(1, 2));
+
+// можно присвоить одну переменную другой
+// const fn1 = () => {
+//   return "Я функция fn1";
+// };
+// const fn2 = fn1;
+
+// console.log(fn2());
+
+// функции можно передавать из одной фунции в другую - callback
+
+// const logMessage = (actionBefore, actionAfter) => {
+//   actionBefore();
+//   console.log("Привет");
+//   actionAfter();
+// };
+
+// const fn1 = () => console.log("before");
+// const fn2 = () => console.log("after");
+// logMessage(fn1, fn2);
+
+// Аналогичная запись кода
+// const logMessage = (actionBefore, actionAfter) => {
+//     actionBefore();
+//     console.log("Привет");
+//     actionAfter();
+//   };
+
+//   logMessage(
+//     () => console.log("before"),
+//     () => console.log("after")
+//     )
+
+// Функция может возвращать результатом другую функцию
+// const validate = (hasAccess) => {
+//   if (hasAccess) {
+//     return () => console.log("Доступ разрешен :)");
+//   } else {
+//     return () => console.log("Доступ запрещен :)");
+//   }
+// };
+
+// const logMessage = validate(true);
+// logMessage();
+
+// const validate = (hasAccess) =>
+//   hasAccess
+//     ? () => console.log("Доступ разрешен :)")
+//     : () => console.log("Доступ запрещен :)");
+
+// const logMessage = validate(true);
+// logMessage();
