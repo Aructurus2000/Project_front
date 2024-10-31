@@ -1,107 +1,93 @@
-/*Виды функциий. Стрелочные функции.*/
+/*Объекты  ▶Объекты в JavaScript. Свойства объекта —
+ чтение, добавление, удаление, проверка наличия и перебор.*/
 
-// console.log(sum(2, 3));
-/* Главная особеность function declaration функции в то что такую функцию можно
-использовать до ее фактического объявления */
-// function sum(a, b) {
-//   return a + b;
-// }
-// function declaration имеется возможность ее перезаписать
-// function logMessage() {
-//   console.log("Привет!");
-// }
-// function logMessage() {
-//   console.log("Пока!");
-// }
+// const user = {};
+// const secondEmptyObject = new Object();
 
-// logMessage();
+// const user = {
+//   login: "iamsuperhero",
+//   password: "qwerty",
+//   "regisration date": "11.01.2024",
+//   age: 33,
+//   adress: {
+//     city: "Москва",
+//     zipCode: 555444,
+//   },
+//   sayHi: () => console.log("Привет!"),
+// };
+// Чтение свойсвты объкта
 
-/* Внутри function declaration можем полчить доступ к неявной переменной arguments,
- в которой, в формате массива будут перечислены значения переданные в функции 
- аргументов*/
-// function logAll() {
-//   console.log(arguments);
+// к любому свойству объекта можно получить доступ несколькими способаи:
+// console.log(user.login); //имя объктв, имя свойства
+// console.log(user["regisration date"]); //для случаев когда имя содержит пробел или дефис
+// user.sayHi(); //вызов метода
+
+// Добавление свойств объекта
+
+// const user = {};
+
+// // добавить свойство объекту
+// user.name = "Александр";
+// user["is developer"] = true;
+// console.log(user);
+
+// // изменение значения свойства
+// user.name = "Максим";
+// console.log(user);
+// //удаление свойства
+
+// delete user.name;
+// delete user["is developer"];
+// console.log(user);
+
+// const name = "Александр";
+// const age = 28;
+
+// const user = { name, age };
+
+// console.log(user);
+
+//Особенности мен свойств объектов
+// формально в качестве имени свойтсва мы можем использовать число
+// const obj = {
+//     123: 'Example',
 // }
-// logAll("Привет", 555, false);
+// console.log(obj['123']) //ключи объектов (имена свойств) всегда являются строками
 
-/* function expression - когда функция записана как функциональное выражение,
- например присвоенно к переменной*/
-// const logHello = function() {
-//     console.log('Привет!')
-// }
-// logHello()
-// такую функцию нельзя переопределить если не let
-// такую функцию нельзя использовать до объявления
+/*Имена свойств так и их значения могут быть вычисляемыми */
+// const propName = prompt("Свойство с киким именем добавить в объект");
+// const propValue = prompt(`Какое значение записать в свойство ${propName}`);
 
-// function arrow
-// const logHello = () => {
-//   console.log("Привет!");
+// const obj = {
+//   [propName]: propValue,
+//   // чтобы имя свойства было вычисляемой сущностью, а не статической строкой нужно сипользовать []
 // };
 
-// logHello();
+// console.log(obj);
 
-// такую функцию нельзя использовать до объявления
-// не имеет доступа к неявной переменной arguments
-// нет своего контекста с использованием this
+// проверка существования свойств в объекте специальный оператор in
 
-// const sum = (a, b) => {
-//   return a + b;
+// const user = {
+//   name: "Алекссандр",
+//   age: 28,
 // };
 
-// console.log(sum(1, 2));
-// отличие стрелочной функции - неявный возврат из функции если записать в одну строку
-// const sum = (a, b) => a + b;
+// console.log("isDeveloper" in user);
+// имя свойства_in_имя объекта
 
-// console.log(sum(1, 2));
+// Перебрать свойства объекта через цикл
 
-// можно присвоить одну переменную другой
-// const fn1 = () => {
-//   return "Я функция fn1";
-// };
-// const fn2 = fn1;
+const user = {
+  name: "Александр",
+  age: 28,
+  isDeveloper: true,
+};
+// итерирование по объектам цикл for in
 
-// console.log(fn2());
-
-// функции можно передавать из одной фунции в другую - callback
-
-// const logMessage = (actionBefore, actionAfter) => {
-//   actionBefore();
-//   console.log("Привет");
-//   actionAfter();
-// };
-
-// const fn1 = () => console.log("before");
-// const fn2 = () => console.log("after");
-// logMessage(fn1, fn2);
-
-// Аналогичная запись кода
-// const logMessage = (actionBefore, actionAfter) => {
-//     actionBefore();
-//     console.log("Привет");
-//     actionAfter();
-//   };
-
-//   logMessage(
-//     () => console.log("before"),
-//     () => console.log("after")
-//     )
-
-// Функция может возвращать результатом другую функцию
-// const validate = (hasAccess) => {
-//   if (hasAccess) {
-//     return () => console.log("Доступ разрешен :)");
-//   } else {
-//     return () => console.log("Доступ запрещен :)");
-//   }
-// };
-
-// const logMessage = validate(true);
-// logMessage();
-
-// const validate = (hasAccess) =>
-//   hasAccess
-//     ? () => console.log("Доступ разрешен :)")
-//     : () => console.log("Доступ запрещен :)");
-
-// const logMessage = validate(true);
-// logMessage();
+for (const key in user) {
+  // переменная для записи значений in имя объекта
+  console.log(key); //имя свойства перебираемого объекта
+  // значение свойства перебрать можно с помощью следующей кострукции
+  console.log(user[key]);
+}
+// так перебираются только ключи (имена свойств)
