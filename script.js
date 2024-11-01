@@ -1,112 +1,117 @@
-/**Ключевое слово this в JavaScript для начинающих • this в объектах и функциях */
+/**JavaScript методы примитивов. Числа.
+ *  Объект Math. Округление чисел.
+ *  Парсинг чисел из строк. */
 
-// С помощью ключевого слова this доступ к контектсу управления
-// console.log("this глобальный:", this); // вызывает объект window
+// //>примитивы<
+// const name = "Александр";
+// //string
+// const age = 28;
+// //number
+// const universeStars = 999999999999999999999n;
+// //bigInt
+// const isDeveloper = true;
+// //boolean
+// const id = Symbol();
+// //symbol
+// const dog = null;
+// //null
+// const future = undefined;
+// //undefined
 
-// function fn() {
-//   console.log("this в теле функции", this);
-//   // в теле функции которая находится в глобальном контектсте
-// }
+// //>непримитив<
+// const user = {};
+// //object
 
-// fn();
-//this ссылается на один и тот же объект wnidow
+// const price = 99.99;
+// const rounderPrice = price.toFixed(0); //округляет число toFixed(0)
 
-// обращение внутри метода объекта
-// const user = {
-//   name: "Александр",
-//   age: 28,
-//   logThis: function () {
-//     console.log("this в теле метода объекта user:", this);
-//     // ключевое слово this ссылается на сам объект user
-//     /**Таким образом в методах можно получить
-//      * свойства текущего объекта
-//      */
-//     //console.log("this.name: ", this.name);
-//   },
-//   address: {
-//     city: "Москва",
-//     zipcode: 123456,
-//     logInnerThis: function () {
-//       console.log("this в теле метода объекта address:", this);
-//     },
-//   },
-// };
+// console.log(`Округленная цена:`, rounderPrice);
+//даже у примитивов могут быть методы как у объектов
 
-// user.logThis();
-// user.address.logInnerThis();
-//не работает с arrow function
+// метод toFixed - округляет число до определенного знака
+//учет длинны ведет не после разделительного знака дробной части, а с самой первой цифры
+// const price = 99.555;
 
-//сокращенная запись
-// const user = {
-//   name: "Александр",
-//   age: 28,
-//   logThis() {
-//     console.log("this в теле метода объекта user:", this);
-//   },
-// };
+// console.log(" Округление до 0 знаков после запятой:", price.toFixed());
+// console.log(" Округление до 1 знака после запятой:", price.toFixed(1));
+// console.log(" Округление до 2 знаков после запятой:", price.toFixed(2));
 
-// user.logThis();
+// // можно обращаться к числам напрямую
 
-// Необычное поведение this в разных условиях
+// console.log((5.011).toFixed(2));
 
-// const user1 = { name: "Миша" };
-// const user2 = { name: "Вася" };
+// метод toPrecision
 
-// function logInfo() {
-//   console.log("this: ", this);
-//   console.log("this.name: ", this.name);
-// }
+// const num = 100.055;
 
-// logInfo();
+// console.log(num.toPrecision(4)); // округлил число до 4-х цифр начиная с самой первой
+// console.log(num.toFixed(4)); // округлил число только до 4-х знаков после знака дробной части числа
 
-// user1.logName = logInfo;
-// user2.logName = logInfo;
+// метод toString - приводит число к формату строки
 
-// user1.logName();
-// user2.logName();
+// const num = 100;
+// const numAsString = num.toString();
 
-// решение задачи  с learn.javascript.ru
-// const calculator = {
-//   read() {
-//     //this.a таким образом мы обратились к самому объекту calculator
-//     //чтобы добавить ему новое свойство с именем 'a'
-//     this.a = +prompt("Введите первое число:", 0);
-//     this.b = +prompt("Введите второе число:", 0);
-//   },
-//   /* должна запрашивать два значения
-//      и сохранять их как свойство текущего
-//       объекта с именами a и b*/
-//   sum() {
-//     return this.a + this.b;
-//   },
+// console.log("Число:", num);
+// console.log("Чисдо в виде строки:", numAsString);
 
-//   mul() {
-//     return this.a * this.b;
-//   },
-// };
+// console.log(typeof num);
+// console.log(typeof numAsString);
 
-// calculator.read();
-// console.log("calculator:", calculator);
-// console.log("Сумма:", calculator.sum());
-// console.log("Произведение:", calculator.mul());
+//у метода toString() есть следующий функционал
+// если в аргумент переадть числоБ, оно будет отвечать за систему счисления
 
-// Задача цепь вызовов
+// const num = 100;
 
-// let ladder = {
-//   step: 0,
-//   up() {
-//     this.step++;
-//     return this;
-//   },
-//   down() {
-//     this.step--;
-//     return this;
-//   },
-//   showStep() {
-//     //показывает теущую ступень
-//     console.log("Текущая ступень:", this.step);
-//     return this;
-//   },
-// };
+// console.log(`Число ${num} в двоичной системе счисления:`, num.toString(2));
 
-// ladder.up().up().down().showStep().down().showStep(); // показывает 1 затем 0
+// матеатические возможности
+
+// console.log(Math); // объект Math
+
+// console.log("Случайное число:", Math.random()); // Math.random рандомное дробное число
+
+// console.log(Math.abs(-1)); //Math.abs - модуль числа
+// console.log(Math.abs(2));
+// console.log(Math.abs(100));
+// console.log(Math.abs(-1000));
+
+// возведение в степень
+
+// console.log(Math.pow(2, 10));
+// console.log(2 ** 10);
+
+// // квадратный корень
+
+// console.log(Math.sqrt(16));
+
+// //кубичесчкий корень
+
+// console.log(Math.cbrt(125));
+
+// вычисление минимального и максимального числа
+
+// console.log(Math.min(1, 2, 3, 4, -5, 10, 1111, 100));
+// console.log(Math.max(1, 2, 3, 4, -5, 10, 1111, 100));
+
+// округление чисел
+
+// console.log(Math.round(3.49));
+// console.log(Math.round(-3.49)); // округляет до ближайшего целого
+
+// console.log(Math.floor(3.49));
+// console.log(Math.floor(-3.49)); // округляет вниз до ближайшего целого
+
+// console.log(Math.ceil(3.49));
+// console.log(Math.ceil(-3.49)); // округляет вверх до ближайшего целого
+
+// console.log(Math.trunc(3.49));
+// console.log(Math.trunc(-3.49)); // округляет до целого в меньшую сторону без учета знака числа
+// // отрицательное округляет всегда вверх, а отрицательное всегда вниз
+
+// задача распарсить строку и получить из нее число
+
+// const numberAsString = "100.5px";
+
+// console.log(parseInt(numberAsString));
+// console.log(parseFloat(numberAsString));
