@@ -1,117 +1,232 @@
-/**JavaScript методы примитивов. Числа.
- *  Объект Math. Округление чисел.
- *  Парсинг чисел из строк. */
+/* Строки в JavaScript.
+ Методы at, replace, slice, includes, repeat, trim, split.
+ Длина строки length. */
 
-// //>примитивы<
 // const name = "Александр";
-// //string
-// const age = 28;
-// //number
-// const universeStars = 999999999999999999999n;
-// //bigInt
-// const isDeveloper = true;
-// //boolean
-// const id = Symbol();
-// //symbol
-// const dog = null;
-// //null
-// const future = undefined;
-// //undefined
+// const emptyStr = "";
+// const strWithOneSpace = " ";
 
-// //>непримитив<
-// const user = {};
-// //object
+// console.log(`Длина строки '${name}': `, name.length); //length обычное свойство содержащее в значении число
+// console.log(`Длина строки '${emptyStr}': `, emptyStr.length);
+// console.log(`Длина строки '${strWithOneSpace}': `, strWithOneSpace.length);
 
-// const price = 99.99;
-// const rounderPrice = price.toFixed(0); //округляет число toFixed(0)
+// получаем конкретный символ из строки по его индексу
 
-// console.log(`Округленная цена:`, rounderPrice);
-//даже у примитивов могут быть методы как у объектов
+// const name = "Александр";
+// //получаем первый симол из строки
+// console.log(name[0]);
+// //получаем последний символ из строки
+// console.log(name[name.length - 1]);
 
-// метод toFixed - округляет число до определенного знака
-//учет длинны ведет не после разделительного знака дробной части, а с самой первой цифры
-// const price = 99.555;
+// Метод at прмименяется к строке, как к объекту name.at
+// в аргументах принимает число номер позиции на примере индекса
+// const name = "Александр";
 
-// console.log(" Округление до 0 знаков после запятой:", price.toFixed());
-// console.log(" Округление до 1 знака после запятой:", price.toFixed(1));
-// console.log(" Округление до 2 знаков после запятой:", price.toFixed(2));
+// console.log(name.at(0)); //получим первый символ
+// console.log(name.at(1)); //получим второй символ
+// console.log(name.at(-1)); // первый символ с конца
 
-// // можно обращаться к числам напрямую
+// методы изменения регистра символов строки
+// const text = "КаКоЙтоТеКсТ";
+// // C нижним регистром
+// console.log(text.toLowerCase());
+// // C верхним регистром
+// console.log(text.toUpperCase());
 
-// console.log((5.011).toFixed(2));
+// // Избавление строки от пробелов в начале и конце
+// const message = "    Привет    ";
 
-// метод toPrecision
+// console.log(`Строка "${message} имеет длину ${message.length} символов`);
 
-// const num = 100.055;
+// const messageFrontend = message.trim(); // метод обрезает пробелы в начале ив конце messahe.trim()
 
-// console.log(num.toPrecision(4)); // округлил число до 4-х цифр начиная с самой первой
-// console.log(num.toFixed(4)); // округлил число только до 4-х знаков после знака дробной части числа
+// console.log(
+//   `Строка "${messageFrontend} имеет длину ${messageFrontend.length} символов`
+// );
 
-// метод toString - приводит число к формату строки
+// // для точечного отсечения
+// const message = "        привет     ";
 
-// const num = 100;
-// const numAsString = num.toString();
+// const messageFormatedBefore = message.trimStart();
+// console.log(
+//   `Сообщение "${messageFormatedBefore}" имеет длину ${messageFormatedBefore.length}`
+// );
 
-// console.log("Число:", num);
-// console.log("Чисдо в виде строки:", numAsString);
+// const messageFormatedAfter = message.trimEnd();
+// console.log(
+//   `сообщение "${messageFormatedAfter}"имеет длину ${messageFormatedAfter.length}`
+// );
 
-// console.log(typeof num);
-// console.log(typeof numAsString);
+// Метод indexOf позволяет получить индекс первого символа подстроки в строке
 
-//у метода toString() есть следующий функционал
-// если в аргумент переадть числоБ, оно будет отвечать за систему счисления
+// const message = "Пробуем найти ~это выражение~ в этом прпедложении";
 
-// const num = 100;
+// console.log(message.indexOf("~это выражение~")); //14
+// console.log(message.indexOf("П")); //0
+// console.log(message.indexOf("всвмвмвм")); //-1 несуществующая строка всегда выдает данное значение
 
-// console.log(`Число ${num} в двоичной системе счисления:`, num.toString(2));
+// const message = "Пробуем найти ~это выражение~ в этом прпедложении";
 
-// матеатические возможности
+// /*
+//  Такие првоерки на наличие подстроки в строке делают следующим образом
+//  */
+// console.log(message.indexOf("всвмвмвм") !== -1); //false - подстрока не найдена
 
-// console.log(Math); // объект Math
+// существет более удобный метод
+//метод includes
 
-// console.log("Случайное число:", Math.random()); // Math.random рандомное дробное число
+// const message = "Пробуем найти ~это выражение~ в этом прпедложении";
 
-// console.log(Math.abs(-1)); //Math.abs - модуль числа
-// console.log(Math.abs(2));
-// console.log(Math.abs(100));
-// console.log(Math.abs(-1000));
+// console.log(message.includes("~это выражение~")); // сразу возвращает boolean значение - true в данном случае
 
-// возведение в степень
+// методы startsWith и endsWith
 
-// console.log(Math.pow(2, 10));
-// console.log(2 ** 10);
+// const message = 'Начало строки и конец'
 
-// // квадратный корень
+// console.log( message.startsWith('Нач')) // начинается строка на указанное значение
+// console.log( message.endsWith('Нач')) // оканчивается строка на указанное значение
 
-// console.log(Math.sqrt(16));
+// Каждому из данных методов можно передать второй аргумент index
+// номер позиции символа строки с которой будет происходить поиск вхождения
 
-// //кубичесчкий корень
+// const message = "Привет";
 
-// console.log(Math.cbrt(125));
+// console.log(message.indexOf("ив", 4)); //-1
+// console.log(message.includes("ив", 4)); //false
+// console.log(message.startsWith("Пр", 0)); //true
+// console.log(message.endsWith("ет", 3)); //false
+// console.log(message.endsWith("ет", message.length)); //true
 
-// вычисление минимального и максимального числа
+// Обрезки строки, способы получить подстроку из строки
 
-// console.log(Math.min(1, 2, 3, 4, -5, 10, 1111, 100));
-// console.log(Math.max(1, 2, 3, 4, -5, 10, 1111, 100));
+// const str = "JavaScript";
 
-// округление чисел
+// // Метод substring
+// console.log(str.substring(0, 4)); //Java
+// // метод позволяет передать индексы в любом порядке
+// console.log(str.substring(4, 0)); //Java
 
-// console.log(Math.round(3.49));
-// console.log(Math.round(-3.49)); // округляет до ближайшего целого
+// // Метод slice
+// console.log(str.slice(0, 4)); //Java
+// // не позволяет менять индексы местами так чтобы начальный был больше чем конечный
+// console.log(str.slice(0, 4)); // пустая строка
+// // можно передать отрицательный индекс в методе  slice
+// console.log(str.slice(-6)); //Script - получили последние 6 символов с конца
 
-// console.log(Math.floor(3.49));
-// console.log(Math.floor(-3.49)); // округляет вниз до ближайшего целого
+// console.log(str.slice(-6, -3)); // Scr
 
-// console.log(Math.ceil(3.49));
-// console.log(Math.ceil(-3.49)); // округляет вверх до ближайшего целого
+// const str = "JavaScript";
+// // Метод repeat - повторяет строку указанное кол-во раз и возвращает результатом новую строку
+// console.log(str.repeat(3));
 
-// console.log(Math.trunc(3.49));
-// console.log(Math.trunc(-3.49)); // округляет до целого в меньшую сторону без учета знака числа
-// // отрицательное округляет всегда вверх, а отрицательное всегда вниз
+// // методы для замены подстроки в строке
+// const message = "Я изучаю бэкенд, но я еще ничего не знаю про бэкенд";
+// // replace() - заменят первую обнаруженную подстроку на то что укажем
+// console.log(message.replace("бэкенд", "фронтенд"));
+// // // Метод replaceAll -  заменят все вхождениея подстроки
+// console.log(message.replaceAll("бэкенд", "фронтенд")); //
+// //если втроке будет несколько вхождений подстроки которую хотим заменить
+// //в результате будет строка в которой изменение произошли только в первом вхождении этой самой подстроки
 
-// задача распарсить строку и получить из нее число
+//оба метда могут принимать не просто строки, а целые регулярные выражения
 
-// const numberAsString = "100.5px";
+// // ЧТобы изменить все вхождения строки не обязательно использовать метод replaceAll
+// const message = "Я изучаю бэкенд, но я еще ничего не знаю про бЭкЕнд";
 
-// console.log(parseInt(numberAsString));
-// console.log(parseFloat(numberAsString));
+// // достаточно в методе replace первым аргументом написать следующее выражение /бэкенд/g.
+// // флаг g - регулярка будет искать с помощью данного флага все совпадения, а не только первое
+
+// // если нужно чтобы регулярное выражение искало вхлждение без учета регистра то в конце регулярного выражения
+// // можно добавить флаг i  /бэкенд/gi
+// console.log(message.replace(/бэкенд/gi, "фронтенд"));
+
+//Пример
+// нужно заменить все цифры в этой строке на символ #
+
+// const str = "+7(999) 999-99-99";
+// // чтобы найти все числовые символы в строке \d
+// console.log(str.replace(/\d/g, "#"));
+
+// метод split - позволяет разбить строку на массив по указанному разделителю
+// который указывается в аргументе
+// const str = "Привет, мир!";
+
+// console.log(str.split(", ")); // в качетсве разделителя (", ")
+
+// Все методы разобранные выше не мутируют исходную строку
+
+// const message = " Привет!   ";
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+// // каждое из этих выражений вернуло в
+// //никуда результат с измененной строкой но исходная сущность не поменялась
+// message.trim();
+// message.toUpperCase();
+// message.slice(0, 4);
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+// строка без изменений
+
+// Если изменить следующим образом то значения будет обновлены
+
+// let message = " Привет!   ";
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+
+// message = message.trim();
+// message = message.toUpperCase();
+// message = message.slice(0, 4);
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+
+// можно написать иначе
+
+// let message = " Привет!   ";
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+
+// message = message.trim().toUpperCase().slice(0, 4);
+
+// console.log(`
+// Сообщение до:
+// "${message}"
+// `);
+
+/**
+ * Выражение с применением метода лишь вернет новый результат
+ * если его не записать в переменную то и смыла от метода не будет
+ */
+
+//      ЗАДАЧА на методы строк       //
+
+const value = prompt("Введите ваше имя:");
+
+const clearValue = value.trim().toLowerCase;
+// обрежеи ненужные пробелы в начале и в конце строки и приводим к нижниму регистру
+
+// если длинна введенного значения равна нулю то ошибка
+if (clearValue.length === 0) {
+  alert("Ошибка! Имя не может быть пустым.");
+}
+
+//фильтрация на запретные слова
+// нельзя использовать 'админ' во всех регистрах его вариациях
+
+if (clearValue.includes("админ")) {
+  alert("Ошибка! Вы не можете занять это имя");
+}
